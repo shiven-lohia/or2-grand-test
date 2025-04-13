@@ -208,16 +208,18 @@ else:
                         st.write(f"• {it}")
 
     # DP + IP comparison
+    # DP + IP comparison
+# DP + IP comparison
     if selected_mode == "DP + IP":
         st.subheader("🔍 DP vs IP Comparison")
         comp_df = pd.DataFrame([
             {
                 "Method": "DP",
                 "Net Value (₹)": round(bv_dp, 2),
-                "Cabin W Used (kg)": round(bs_dp[0]/scale, 2),
-                "Check-in W Used (kg)": round(bs_dp[2]/scale, 2),
-                "Cabin V Used (L)": round(bs_dp[1]/scale, 2),
-                "Check-in V Used (L)": round(bs_dp[3]/scale, 2),
+                "Cabin W Used (kg)": round(bs_dp[0] / scale, 2),
+                "Check-in W Used (kg)": round(bs_dp[2] / scale, 2),
+                "Cabin V Used (L)": round(bs_dp[1] / scale, 2),
+                "Check-in V Used (L)": round(bs_dp[3] / scale, 2),
             },
             {
                 "Method": "IP",
@@ -228,7 +230,19 @@ else:
                 "Check-in V Used (L)": round(bs_ip[3], 2),
             }
         ])
-        st.table(comp_df.set_index("Method"))
+        
+        # Ensure headers are readable and avoid wrapping
+        comp_df.columns = [
+            "Method", 
+            "Net Value (₹)", 
+            "Cabin W Used (kg)", 
+            "Check-in W Used (kg)", 
+            "Cabin V Used (L)", 
+            "Check-in V Used (L)"
+        ]
+        
+        st.dataframe(comp_df.set_index("Method"), use_container_width=True)
+
 
     if st.button("← Back"):
         st.session_state.show_results = False
