@@ -86,7 +86,9 @@ if not st.session_state.show_results:
                         'checkin_safe': checkin_safe,
                         'movers_safe': movers_safe
                     })
-                    st.experimental_rerun()
+                    # Avoid st.experimental_rerun, just update the page
+                    st.session_state.show_results = False  # Reset results to show the input page
+                    st.session_state.show_results = True  # Trigger page refresh with updated state
 
         if st.session_state.item_list:
             df = pd.DataFrame(st.session_state.item_list)
@@ -126,7 +128,8 @@ if not st.session_state.show_results:
 
         if st.button("Optimize Packing"):
             st.session_state.show_results = True
-            st.experimental_rerun()
+            # Avoid rerun, but trigger the results page update
+            st.session_state.show_results = True
 
 # --- Page 2: Results ---
 else:
@@ -229,4 +232,5 @@ else:
 
     if st.button("← Back"):
         st.session_state.show_results = False
-        st.experimental_rerun()
+        # Avoid rerun and use session_state update to go back
+        st.session_state.show_results = False
